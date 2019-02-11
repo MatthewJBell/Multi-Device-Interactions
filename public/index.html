@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multi Device Interaction</title>
+        <meta name="description" content="Hello, WebVR! - A-Frame">
+        <script src="/js/aframe-v0.9.0.min.js"></script>
+
+        <!-- load components -->
+        <script src="/js/spinObject.js"></script>
+
+    </head>
+    <body>
+        <a-scene shadow="type: basic;">
+            <a-assets timeout='3000'>
+                <img id='skymap' src='assets/starfield.png'>
+
+                <a-assets-item id="earth" src='assets/earth/Earth.obj'></a-assets-item> 
+                <img id='diffuse' src='assets/earth/Earth_Diffuse.jpg'>
+                <img id='displacement' src='assets/earth/Earth_Displacement.jpg'>
+                <img id='Normal' src='assets/earth/Earth_Normal.jpg'>
+                <img id='clouds' src='assets/earth/EarthClouds_Mask.jpg' >
+
+                <a-asset-item crossorigin="anonymous" id="wind-sound" src="/assets/sound/wind.wav" response-type="arraybuffer"></a-asset-item>
+            </a-assets>            
+
+            
+            <a-camera camera="" cursor="rayOrigin: mouse" position="-10.172060689129257 3.36817 18.898049501327858" rotation="-2.0626480624709655 -45.492848933387364" look-controls="" wasd-controls="acceleration: 250" data-aframe-inspector-original-camera="" raycaster="direction: -0.530822893664613 0.19931811391839513 -0.8237107168330035; origin: 0 1.6 2.063524479429291; useWorldCoordinates: true"></a-camera>
+            
+            
+
+            <!-- sound entities we will query and play in components -->
+            <a-entity id="spin-sound" sound="src:#wind-sound"></a-entity>
+
+
+            <!-- Lighting -->
+            <a-entity light="castShadow: true; shadowBias: 1.61; shadowMapHeight: 1024; intensity: 3; color: #fff7d2; type: point" position="-0.5 23.13441 60.96027"></a-entity>
+
+            <!-- Geometry -->
+            <a-entity spin-object id="earthEntity" obj-model="obj:#earth" rotation="0 0 0" position="-0.0101 2.59283 2.7935" scale="0.1 0.1 0.1" 
+            material="src: #diffuse; normalMap: #Normal; displacementMap: #displacement;">            
+                <!-- <a-animation
+                    attribute='rotation'
+                    dur='10000'
+                    from="0 0 0"
+                    to="0 360 0"
+                    repeat="indefinite"></a-animation> -->
+                    <!-- <a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000"
+                    repeat="indefinite"></a-animation> -->
+            </a-entity>
+            
+            <!-- Sky -->
+            <a-entity id="sky" geometry="primitive:sphere; radius:500;" material="shader:flat; src:#skymap; side:back; height:2048; width:2048;"></a-entity>
+          </a-scene>
+    </body>
+</html>
